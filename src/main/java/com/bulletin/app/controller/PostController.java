@@ -1,6 +1,8 @@
 package com.bulletin.app.controller;
 
 import com.bulletin.app.common.response.ResponseAPI;
+import com.bulletin.app.dto.request.CreatePostDTO;
+import com.bulletin.app.dto.request.UpdatePostDTO;
 import com.bulletin.app.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,17 +26,17 @@ public class PostController {
     }
 
     @PostMapping
-    public String createPost() {
-        return "create post";
+    public ResponseEntity<ResponseAPI> createPost(@RequestBody CreatePostDTO request) {
+        return service.createPost(request);
     }
 
     @PutMapping("/{id}")
-    public String modifyPost(@PathVariable String id) {
-        return "modify post";
+    public ResponseEntity<ResponseAPI> modifyPost(@PathVariable Long id, @RequestBody UpdatePostDTO dto) {
+        return service.modifyingPost(id, dto);
     }
 
     @DeleteMapping("/{id}")
-    public String deletePost(@PathVariable String id) {
-        return "delete post";
+    public ResponseEntity<ResponseAPI> deletePost(@PathVariable Long id) {
+        return service.deletePost(id);
     }
 }

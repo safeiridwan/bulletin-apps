@@ -1,5 +1,6 @@
 package com.bulletin.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +24,7 @@ public class Post {
     private Integer viewers;
     @Column(name = "status")
     private Boolean status;
+    @JsonIgnore
     @Column(name = "password")
     private String password;
     @Column(name = "created_at")
@@ -35,6 +37,7 @@ public class Post {
     @PrePersist
     public void prePersist() {
         this.createdAt = LocalDateTime.now();
+        this.status = true;
     }
 
 
