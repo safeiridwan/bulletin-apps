@@ -1,9 +1,10 @@
 package com.bulletin.app.service;
 
-import com.bulletin.app.dto.response.PostDTO;
+import com.bulletin.app.common.response.ResponseAPI;
+import org.springframework.http.ResponseEntity;
 
-import java.util.List;
 
 public interface PostService {
-    List<PostDTO> getListPost();
+    ResponseEntity<ResponseAPI> getListPost();
+    ResponseEntity<ResponseAPI> getDetailPost(Long id);
 }

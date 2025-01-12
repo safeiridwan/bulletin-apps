@@ -1,12 +1,11 @@
 package com.bulletin.app.controller;
 
-import com.bulletin.app.dto.response.PostDTO;
+import com.bulletin.app.common.response.ResponseAPI;
 import com.bulletin.app.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,14 +14,13 @@ public class PostController {
     private final PostService service;
 
     @GetMapping
-    public ResponseEntity<List<PostDTO>> getListPost() {
-        List<PostDTO> list = service.getListPost();
-        return ResponseEntity.ok(list);
+    public ResponseEntity<ResponseAPI> getListPost() {
+        return service.getListPost();
     }
 
     @GetMapping("/{id}")
-    public String getDetailPost(@PathVariable String id) {
-        return "detail post";
+    public ResponseEntity<ResponseAPI> getDetailPost(@PathVariable Long id) {
+        return service.getDetailPost(id);
     }
 
     @PostMapping

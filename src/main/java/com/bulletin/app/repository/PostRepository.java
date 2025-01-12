@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long>, JpaSpecificationExecutor<Post> {
     List<Post> findAllByStatus(boolean status);
+    Post findOneByIdAndStatus(Long id, boolean status);
 }
