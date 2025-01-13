@@ -23,7 +23,10 @@ public class PostServiceImpl implements PostService {
     private final PostMapper mapper;
 
     public ResponseEntity<ResponseAPI> getListPost() {
-        List<PostDTO> list = postRepository.findAllByStatus(true).stream().map(mapper::toDTO).toList();
+        List<PostDTO> list = postRepository.findAllByStatusOrderByCreatedAtDesc(true)
+                .stream()
+                .map(mapper::toDTO)
+                .toList();
         return ResponseEntity.ok(new ResponseAPI(200, "OK", null, list));
     }
 
@@ -37,8 +40,12 @@ public class PostServiceImpl implements PostService {
         return ResponseEntity.ok(new ResponseAPI(200, "OK", null, mapper.toDetailDTO(post)));
     }
 
+    @Transactional
     public ResponseEntity<ResponseAPI> createPost(CreatePostDTO request) {
         Post post = mapper.toEntity(request);
+        Long maxSequence = postRepository.findMaxSequence().orElse(0L);
+        post.setSequence(maxSequence + 1);
+
         postRepository.save(post);
         return ResponseEntity.ok(new ResponseAPI(200, "OK", null, post));
     }

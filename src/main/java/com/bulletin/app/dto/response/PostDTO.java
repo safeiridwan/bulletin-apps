@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Builder
 public class PostDTO {
     private Long id;
+    private Long sequence;
     private String title;
     private String author;
     private Integer viewers;
