@@ -8,5 +8,6 @@ import lombok.Data;
 public class UpdatePostDTO {
     private String author;
     private String password;
+    private String title;
     private String content;
 }

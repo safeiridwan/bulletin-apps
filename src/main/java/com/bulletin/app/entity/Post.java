@@ -3,6 +3,7 @@ package com.bulletin.app.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
 
@@ -37,11 +38,20 @@ public class Post {
     public void prePersist() {
         this.createdAt = LocalDateTime.now();
         this.status = true;
+        this.viewers = 0;
+        hashPassword();
     }
 
 
     @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDateTime.now();
+    }
+
+    private void hashPassword() {
+        if (password != null && !password.isEmpty()) {
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            this.password = encoder.encode(password);
+        }
     }
 }
